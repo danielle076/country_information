@@ -7,16 +7,27 @@
 </head>
 <body>
 
-<input id="search-bar" type="text" placeholder="search country"/>
-<button id="search-button" type="button">
-    Search
-</button>
 
-<div id="countries"></div>
+<div class="container">
+    <div id="image"><img src="assets/world.gif" height="270" width="400"/></div>
 
-<p id="error-message"></p>
+    <div id="title">
+        <h2>Country Information</h2>
+    </div>
+
+    <div id="search">
+        <input id="search-bar" type="text" placeholder="Search country"/>
+        <button id="search-button" type="submit">Search</button>
+    </div>
+
+    <div id="countries"></div>
+
+    <p id="error-message"></p>
+
+</div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="./node_modules/axios/dist/axios.min.js"></script>
 <script src="main.js"></script>
 </body>

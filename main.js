@@ -446,6 +446,80 @@
 // searchInput.addEventListener("keypress", handleKeyPress)
 
 // Vraag 12 en 13
+// async function displayCountry() {
+//     const errorMessage = document.getElementById("error-message");
+//     errorMessage.textContent = "";
+//
+//     try {
+//         const inputElement = document.getElementById("search-bar");
+//         const userInput = inputElement.value;
+//         const country = userInput;
+//         searchInput.value = "";
+//         const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
+//         const response = await axios.get(url)
+//
+//         const countryData = response.data[0];
+//
+//         const selectCountry = document.createElement('div');
+//         selectCountry.setAttribute('id', 'selectCountry');
+//
+//         const flag = document.createElement("img");
+//         flag.setAttribute('src', countryData.flag);
+//         selectCountry.appendChild(flag);
+//
+//         const countryName = document.createElement('h1');
+//         countryName.textContent = countryData.name;
+//         selectCountry.appendChild(countryName);
+//
+//         const currencies = countryData.currencies;
+//         const currencyString = formatCurrencies(currencies);
+//
+//         const geography = document.createElement("p");
+//         geography.textContent = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`;
+//         selectCountry.appendChild(geography);
+//
+//         const capital = document.createElement("p");
+//         capital.textContent = `The capital is ${countryData.capital} ${currencyString}.`;
+//         selectCountry.appendChild(capital);
+//
+//         const previousSearchResult = document.getElementById("selectCountry");
+//         if (previousSearchResult) {
+//             countryContainer.removeChild(previousSearchResult);
+//         }
+//
+//         countryContainer.appendChild(selectCountry);
+//
+//     } catch(e) {
+//         console.error(e);
+//         errorMessage.textContent = "Dit land bestaat niet. Probeer het opnieuw!";
+//     }
+// }
+//
+// function formatCurrencies(currencyArray){
+//     const currencyOne = currencyArray[0];
+//     const currencyTwo = currencyArray[1];
+//     if(currencyArray.length === 1){
+//         return `and you can pay with ${currencyOne.name}'s`
+//     }
+//     if (currencyArray.length > 1) {
+//         return `and you can pay with ${currencyOne.name}'s and ${currencyTwo.name}'s`
+//     }
+// }
+//
+// const countryContainer = document.getElementById("countries");
+//
+// function handleKeyPress (event){
+//     if(event.code === "Enter"){
+//         displayCountry()
+//     }
+// }
+//
+// const button = document.getElementById("search-button");
+// button.addEventListener("click", displayCountry);
+//
+// const searchInput = document.getElementById("search-bar");
+// searchInput.addEventListener("keypress", handleKeyPress)
+
 async function displayCountry() {
     const errorMessage = document.getElementById("error-message");
     errorMessage.textContent = "";
@@ -455,19 +529,16 @@ async function displayCountry() {
         const userInput = inputElement.value;
         const country = userInput;
         searchInput.value = "";
+
         const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
         const response = await axios.get(url)
 
         const countryData = response.data[0];
 
-        const selectCountry = document.createElement('div');
-        selectCountry.setAttribute('id', 'selectCountry');
+        const selectCountry = document.createElement("div");
+        selectCountry.setAttribute("id", "selectCountry");
 
-        const flag = document.createElement("img");
-        flag.setAttribute('src', countryData.flag);
-        selectCountry.appendChild(flag);
-
-        const countryName = document.createElement('h1');
+        const countryName = document.createElement("h2");
         countryName.textContent = countryData.name;
         selectCountry.appendChild(countryName);
 
@@ -482,6 +553,11 @@ async function displayCountry() {
         capital.textContent = `The capital is ${countryData.capital} ${currencyString}.`;
         selectCountry.appendChild(capital);
 
+        const flag = document.createElement("img");
+        flag.setAttribute("src", countryData.flag);
+        flag.setAttribute("width", "50px");
+        selectCountry.appendChild(flag);
+
         const previousSearchResult = document.getElementById("selectCountry");
         if (previousSearchResult) {
             countryContainer.removeChild(previousSearchResult);
@@ -491,7 +567,7 @@ async function displayCountry() {
 
     } catch(e) {
         console.error(e);
-        errorMessage.textContent = "Dit land bestaat niet. Probeer het opnieuw!";
+        errorMessage.textContent = "This country does not exist. Please try again!";
     }
 }
 
