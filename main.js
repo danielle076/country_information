@@ -98,19 +98,81 @@
 // button.addEventListener("click", displayCountry);
 
 // Vraag 5
+// async function displayCountry(){
+//     const country = "Antarctica";
+//     const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
+//
+//     const response = await axios.get(url)
+//
+//     const countryData = response.data[0];
+//     const geography = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`
+//     const capital = `The capital is ${countryData.capital}`
+//
+//     const currencies = countryData.currencies;
+//     const currencyString = formatCurrencies(currencies);
+//     console.log(currencyString); // and you can pay with Australian dollar's and British pound's
+// }
+//
+// function formatCurrencies(currencyArray){
+//     const currencyOne = currencyArray[0];
+//     const currencyTwo = currencyArray[1];
+//     if(currencyArray.length === 1){
+//         return `and you can pay with ${currencyOne.name}'s`
+//     }
+//     if (currencyArray.length > 1) {
+//         return `and you can pay with ${currencyOne.name}'s and ${currencyTwo.name}'s`
+//     }
+// }
+//
+// const button = document.getElementById("search-button");
+// button.addEventListener("click", displayCountry);
+
+// Vraag 6: bonus
+
+// Vraag 7
 async function displayCountry(){
     const country = "Antarctica";
     const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
-
     const response = await axios.get(url)
 
     const countryData = response.data[0];
-    const geography = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`
-    const capital = `The capital is ${countryData.capital}`
+
+    // Maak een selectCountry container aan
+    const selectCountry = document.createElement('div');
+    selectCountry.setAttribute('id', 'selectCountry');
+
+    // Maak de <img> tag om de vlag in weer te geven
+    const flag = document.createElement("img");
+    console.log("FLAG:", flag); // geeft FLAG: <img src="https://restcountries.eu/data/ata.svg">
+    // Stop de image url in het src attribuut van img
+    flag.setAttribute('src', countryData.flag);
+    selectCountry.appendChild(flag);
+
+    // Countryname maken
+    const countryName = document.createElement('h1');
+    console.log("NAME:", countryName);
+    countryName.textContent = countryData.name;
+    selectCountry.appendChild(countryName);
 
     const currencies = countryData.currencies;
     const currencyString = formatCurrencies(currencies);
-    console.log(currencyString); // and you can pay with Australian dollar's and British pound's
+
+    const geography = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`
+    const capital = `The capital is ${countryData.capital}`
+
+    console.log("POPULATION", geography);
+    console.log("CAPITAL", capital);
+    console.log("CURRENCIES", currencyString);
+
+    // Sla de referentie op naar de country-container waarin de informatie van een land staat
+    const previousSearchResult = document.getElementById("selectCountry");
+    // Als deze referentie bestaat (en er dus al een land op de pagina wordt weergegeven) dan halen we deze eerst weg
+    if (previousSearchResult) {
+        countryContainer.removeChild(previousSearchResult);
+    }
+
+    // Voeg de country <div> toe aan de countryContainer
+    countryContainer.appendChild(selectCountry);
 }
 
 function formatCurrencies(currencyArray){
@@ -123,6 +185,9 @@ function formatCurrencies(currencyArray){
         return `and you can pay with ${currencyOne.name}'s and ${currencyTwo.name}'s`
     }
 }
+
+// Sla de referentie naar het "anker" element op waarin we alle landen gaan toevoegen
+const countryContainer = document.getElementById("countries");
 
 const button = document.getElementById("search-button");
 button.addEventListener("click", displayCountry);
