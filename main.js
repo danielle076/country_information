@@ -380,44 +380,119 @@
 // searchInput.addEventListener("keypress", handleKeyPress)
 
 // Vraag 10
-async function displayCountry(){
-    const inputElement = document.getElementById("search-bar");
-    const userInput = inputElement.value;
-    const country = userInput;
-    searchInput.value = "";
-    const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
-    const response = await axios.get(url)
+// async function displayCountry(){
+//     const inputElement = document.getElementById("search-bar");
+//     const userInput = inputElement.value;
+//     const country = userInput;
+//     searchInput.value = "";
+//     const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
+//     const response = await axios.get(url)
+//
+//     const countryData = response.data[0];
+//
+//     const selectCountry = document.createElement('div');
+//     selectCountry.setAttribute('id', 'selectCountry');
+//
+//     const flag = document.createElement("img");
+//     flag.setAttribute('src', countryData.flag);
+//     selectCountry.appendChild(flag);
+//
+//     const countryName = document.createElement('h1');
+//     countryName.textContent = countryData.name;
+//     selectCountry.appendChild(countryName);
+//
+//     const currencies = countryData.currencies;
+//     const currencyString = formatCurrencies(currencies);
+//
+//     const geography = document.createElement("p");
+//     geography.textContent = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`;
+//     selectCountry.appendChild(geography);
+//
+//     const capital = document.createElement("p");
+//     capital.textContent = `The capital is ${countryData.capital} ${currencyString}.`;
+//     selectCountry.appendChild(capital);
+//
+//     const previousSearchResult = document.getElementById("selectCountry");
+//     if (previousSearchResult) {
+//         countryContainer.removeChild(previousSearchResult);
+//     }
+//
+//     countryContainer.appendChild(selectCountry);
+// }
+//
+// function formatCurrencies(currencyArray){
+//     const currencyOne = currencyArray[0];
+//     const currencyTwo = currencyArray[1];
+//     if(currencyArray.length === 1){
+//         return `and you can pay with ${currencyOne.name}'s`
+//     }
+//     if (currencyArray.length > 1) {
+//         return `and you can pay with ${currencyOne.name}'s and ${currencyTwo.name}'s`
+//     }
+// }
+//
+// const countryContainer = document.getElementById("countries");
+//
+// function handleKeyPress (event){
+//     if(event.code === "Enter"){
+//         displayCountry()
+//     }
+// }
+//
+// const button = document.getElementById("search-button");
+// button.addEventListener("click", displayCountry);
+//
+// const searchInput = document.getElementById("search-bar");
+// searchInput.addEventListener("keypress", handleKeyPress)
 
-    const countryData = response.data[0];
+// Vraag 12 en 13
+async function displayCountry() {
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.textContent = "";
 
-    const selectCountry = document.createElement('div');
-    selectCountry.setAttribute('id', 'selectCountry');
+    try {
+        const inputElement = document.getElementById("search-bar");
+        const userInput = inputElement.value;
+        const country = userInput;
+        searchInput.value = "";
+        const url = `https://restcountries.eu/rest/v2/name/${country}?fullText=true`;
+        const response = await axios.get(url)
 
-    const flag = document.createElement("img");
-    flag.setAttribute('src', countryData.flag);
-    selectCountry.appendChild(flag);
+        const countryData = response.data[0];
 
-    const countryName = document.createElement('h1');
-    countryName.textContent = countryData.name;
-    selectCountry.appendChild(countryName);
+        const selectCountry = document.createElement('div');
+        selectCountry.setAttribute('id', 'selectCountry');
 
-    const currencies = countryData.currencies;
-    const currencyString = formatCurrencies(currencies);
+        const flag = document.createElement("img");
+        flag.setAttribute('src', countryData.flag);
+        selectCountry.appendChild(flag);
 
-    const geography = document.createElement("p");
-    geography.textContent = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`;
-    selectCountry.appendChild(geography);
+        const countryName = document.createElement('h1');
+        countryName.textContent = countryData.name;
+        selectCountry.appendChild(countryName);
 
-    const capital = document.createElement("p");
-    capital.textContent = `The capital is ${countryData.capital} ${currencyString}.`;
-    selectCountry.appendChild(capital);
+        const currencies = countryData.currencies;
+        const currencyString = formatCurrencies(currencies);
 
-    const previousSearchResult = document.getElementById("selectCountry");
-    if (previousSearchResult) {
-        countryContainer.removeChild(previousSearchResult);
+        const geography = document.createElement("p");
+        geography.textContent = `${countryData.name} is situated in ${countryData.subregion}. It has a population of ${(countryData.population / 1000000).toFixed(1)} million people.`;
+        selectCountry.appendChild(geography);
+
+        const capital = document.createElement("p");
+        capital.textContent = `The capital is ${countryData.capital} ${currencyString}.`;
+        selectCountry.appendChild(capital);
+
+        const previousSearchResult = document.getElementById("selectCountry");
+        if (previousSearchResult) {
+            countryContainer.removeChild(previousSearchResult);
+        }
+
+        countryContainer.appendChild(selectCountry);
+
+    } catch(e) {
+        console.error(e);
+        errorMessage.textContent = "Dit land bestaat niet. Probeer het opnieuw!";
     }
-
-    countryContainer.appendChild(selectCountry);
 }
 
 function formatCurrencies(currencyArray){
@@ -444,4 +519,3 @@ button.addEventListener("click", displayCountry);
 
 const searchInput = document.getElementById("search-bar");
 searchInput.addEventListener("keypress", handleKeyPress)
-
